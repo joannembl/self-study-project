@@ -17,7 +17,7 @@ Build a new backend API in Java while integrating the vert.x framework
 ## Project
 - Build Week 9 User App Project using Java/Vert.x Framework
 
-= Vertx-api-project
+# Vertx-api-project
 
 image:https://img.shields.io/badge/vert.x-4.3.2-purple.svg[link="https://vertx.io"]
 

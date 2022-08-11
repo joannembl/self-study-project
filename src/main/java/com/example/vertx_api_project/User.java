@@ -12,12 +12,18 @@ public class User {
   private String jobTitle;
   private String location;
 
-  public User(String firstName, String lastName, String jobTitle, String location){
+  private String avatar;
+
+  private String profilePic;
+
+  public User(String firstName, String lastName, String jobTitle, String location, String avatar, String profilePic){
     this.id = COUNTER.getAndIncrement();
     this.firstName = firstName;
     this.lastName = lastName;
     this.jobTitle = jobTitle;
     this.location = location;
+    this.avatar = avatar;
+    this.profilePic = profilePic;
   }
 
   public User() {
@@ -40,6 +46,10 @@ public class User {
     return location;
   }
 
+  public String getAvatar() {return avatar;}
+
+  public String getProfilePic() {return profilePic;}
+
   public int getId(){
     return id;
   }
@@ -59,4 +69,8 @@ public class User {
   public void setLocation(String location) {
     this.location = location;
   }
+
+  public void setAvatar(String avatar) {this.avatar = avatar;}
+
+  public void setProfilePic(String profilePic) {this.profilePic = profilePic;}
 }

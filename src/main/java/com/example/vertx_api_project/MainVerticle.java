@@ -10,6 +10,7 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
+import io.vertx.ext.web.handler.CorsHandler;
 import io.vertx.ext.web.handler.StaticHandler;
 import io.vertx.mysqlclient.MySQLConnectOptions;
 import io.vertx.sqlclient.*;
@@ -47,6 +48,36 @@ public class MainVerticle extends AbstractVerticle {
 
     router.route("/assets/*").handler(StaticHandler.create("assets"));
 
+//    router.route().handler(CorsHandler.create("*")
+//      .allowedMethod(io.vertx.core.http.HttpMethod.GET)
+//      .allowedMethod(io.vertx.core.http.HttpMethod.POST)
+//      .allowedMethod(io.vertx.core.http.HttpMethod.DELETE)
+//      .allowedMethod(io.vertx.core.http.HttpMethod.PUT)
+//      .allowedMethod(io.vertx.core.http.HttpMethod.UPDATE)
+//      .allowedMethod(io.vertx.core.http.HttpMethod.OPTIONS)
+//      .allowedHeader("Access-Control-Allow-Method")
+//      .allowedHeader("Access-Control-Allow-Credentials")
+//      .allowedHeader("Access-Control-Allow-Origin")
+//      .allowedHeader("Access-Control-Allow-Headers")
+//      .allowedHeader("Content-Type"));
+
+    router.route().handler(CorsHandler.create("*")
+      .allowedMethod(io.vertx.core.http.HttpMethod.GET)
+      .allowedMethod(io.vertx.core.http.HttpMethod.POST)
+      .allowedMethod(io.vertx.core.http.HttpMethod.PUT)
+      .allowedMethod(io.vertx.core.http.HttpMethod.DELETE)
+      .allowedMethod(io.vertx.core.http.HttpMethod.OPTIONS)
+      .allowCredentials(true)
+      .allowedHeader("Access-Control-Allow-Headers")
+      .allowedHeader("Authorization")
+      .allowedHeader("Access-Control-Allow-Method")
+      .allowedHeader("Access-Control-Allow-Origin")
+      .allowedHeader("Access-Control-Allow-Credentials")
+      .allowedHeader("origin")
+      .allowedHeader("SameSite")
+      .allowedHeader("Content-Type"));
+
+
     router.get("/api/users").handler(getAll(pool));
     router.route("/api/users*").handler(BodyHandler.create());
     router.post("/api/users").handler(addOne(pool));
@@ -76,7 +107,7 @@ public class MainVerticle extends AbstractVerticle {
     return routingContext -> {
       JsonArray jsonArray = new JsonArray();
       pool
-        .query("SELECT id, firstName, lastName, jobTitle, location FROM users")
+        .query("SELECT id, firstName, lastName, jobTitle, location, avatar, profilePic FROM users")
         .execute(ar -> {
           if(ar.succeeded()) {
             RowSet<Row> rows = ar.result();
@@ -108,9 +139,12 @@ public class MainVerticle extends AbstractVerticle {
       String last_name = userToAdd.getString("lastName");
       String job_title = userToAdd.getString("jobTitle");
       String location = userToAdd.getString("location");
+      String avatar = userToAdd.getString("avatar");
+      String profilePic = userToAdd.getString("profilePic");
+
 
       pool
-        .query("INSERT INTO users (firstName, lastName, jobTitle, location) VALUES ('"+first_name+"', '"+last_name+"', '"+job_title+"', '"+location+"')")
+        .query("INSERT INTO users (firstName, lastName, jobTitle, location, avatar, profilePic) VALUES ('"+first_name+"', '"+last_name+"', '"+job_title+"', '"+location+"', '"+avatar+"', '"+profilePic+"')")
         .execute(ar -> {
           if(ar.succeeded()){
             routingContext
@@ -134,7 +168,7 @@ public class MainVerticle extends AbstractVerticle {
       try {
         Integer idAsInteger = Integer.valueOf(id);
         pool
-          .query("SELECT firstName, lastName, jobTitle, location FROM users WHERE id="+idAsInteger+"")
+          .query("SELECT id, firstName, lastName, jobTitle, location, avatar, profilePic FROM users WHERE id="+idAsInteger+"")
           .execute(ar -> {
             if(ar.succeeded()){
               RowSet<Row> rows = ar.result();
@@ -166,12 +200,15 @@ public class MainVerticle extends AbstractVerticle {
       String last_name = body.getString("lastName");
       String job_title = body.getString("jobTitle");
       String location = body.getString("location");
+      String avatar = body.getString("avatar");
+      String profilePic = body.getString("profilePic");
+
 
 
       try {
         Integer idAsInteger = Integer.valueOf(id);
         pool
-          .query("UPDATE users SET firstName='"+first_name+"', lastName='"+last_name+"', jobTitle='"+job_title+"', location='"+location+"' WHERE id="+idAsInteger+"")
+          .query("UPDATE users SET firstName='"+first_name+"', lastName='"+last_name+"', jobTitle='"+job_title+"', location='"+location+"', avatar='"+avatar+"', profilePic='"+profilePic+"' WHERE id="+idAsInteger+"")
           .execute(ar -> {
             if (ar.succeeded()){
               routingContext

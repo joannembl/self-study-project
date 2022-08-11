@@ -6,8 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="self-study-project" />
         <module name="vertx-api-project" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="self-study-project" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

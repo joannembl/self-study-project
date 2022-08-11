@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Card  from "../components/Card";
 import Loader from '../components/Loader';
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 function Users() {
   const [users, setUsers] = useState([]);
@@ -42,6 +43,7 @@ function Users() {
           }).map((item) => <Card key={item.id} item={item}/> )
           : <Loader />}
       </div>
+      <Footer />
     </div>
   )
 }

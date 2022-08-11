@@ -43,7 +43,7 @@ function UserDescriptionCard ({item}) {
 
       <div className="description-card-actions">
         <LinkButton to={`/users`} text={'Back'}/>
-        <button className='link-btn' onClick={() => deleteItem(item.id)}>
+        <button className='link-btn-delete' onClick={() => deleteItem(item.id)}>
           Delete User
         </button>
         <LinkButton to={`/edit-user/${item.id}`}text={'Edit'}/>

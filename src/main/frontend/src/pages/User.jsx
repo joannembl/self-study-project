@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import UserDescriptionCard from '../components/UserDescriptionCard';
 import Loader from '../components/Loader';
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 function User() {
 
@@ -32,10 +33,9 @@ function User() {
       <Header />
       <div className='user'>
         <h1>User Details:</h1>
-        <div>
           {user ? <UserDescriptionCard item={user} /> : <Loader />}
-        </div>
       </div>
+      <Footer />
     </div>
   )
 }

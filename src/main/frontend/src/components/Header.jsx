@@ -5,7 +5,7 @@ function Header() {
 
   return(
     <div className='header'>
-      <img src='https://assets.stickpng.com/thumbs/585e4d1ccb11b227491c339b.png' alt='users-logo' />
+      <img src='https://freepikpsd.com/file/2019/10/user-icons-png-8-Transparent-Images.png' alt='users-logo' />
       <ul>
         <li><Link to='/' className='link-btn'>Home</Link></li>
         <li><Link to='/users' className='link-btn'>Users</Link></li>

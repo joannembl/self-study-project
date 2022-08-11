@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 function HomePage() {
   return (
@@ -14,6 +15,8 @@ function HomePage() {
         <img src='https://cdn.hashnode.com/res/hashnode/image/upload/v1622008722227/ResNcwZyph.png' alt='react.js' />
         <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Vert.x_Logo.svg/1200px-Vert.x_Logo.svg.png' alt='vert.x' />
       </div>
+
+      <Footer />
     </div>
   )
 }

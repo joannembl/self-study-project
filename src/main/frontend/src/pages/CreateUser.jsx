@@ -2,6 +2,7 @@ import React from 'react';
 import UserForm from '../components/UserForm';
 import Header from "../components/Header";
 import LinkButton from "../components/LinkButton";
+import Footer from "../components/Footer";
 
 
 function CreateUser() {
@@ -14,6 +15,7 @@ function CreateUser() {
       <UserForm />
       <LinkButton to={`/users`} text={'Back'}/>
       </div>
+      <Footer />
     </div>
   )
 }
